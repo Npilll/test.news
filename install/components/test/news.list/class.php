@@ -28,12 +28,11 @@ class TestNewsListBlock extends CBitrixComponent
     {
         global $USER, $APPLICATION;
 
-        $this->arResult = $this->arParams;
         $this->uniqueId = md5($this->randString());
         $this->uniqueId = $this->GetEditAreaId($this->uniqueId);
         $this->arResult['AREA_ID'] = $this->uniqueId;
 
-        $this->arResult['ITEMS'] = $this->getNewsData();
+        $this->arResult['ITEMS'] = $this->getNewsData($this->arParams['DEFAULT_STATUS'] ?: $this->defaultPublicStatusId);
     }
 
 
@@ -50,13 +49,13 @@ class TestNewsListBlock extends CBitrixComponent
             ShowError($e->getMessage());
         }
     }
-    private function getNewsData(){
+    private function getNewsData($status){
         $newsData = NewsTable::getList(
             [
                 'count_total' => true,
                 'order' => ['CREATED_AT' => 'DESC', 'SORT' => 'DESC'],
                 'filter' => [
-                    'STATUS_ID' => $this->defaultPublicStatusId,
+                    'STATUS_ID' => $status,
                 ],
             ]
         )->fetchAll();

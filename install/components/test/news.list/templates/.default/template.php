@@ -21,7 +21,4 @@ $obName = 'ob' . preg_replace('/[^a-zA-Z0-9_]/', 'x', $arResult['AREA_ID']);
         <div class="news-item__date"><?=FormatDate('d F Y  H:i:s', $item['CREATED_AT']);?></div>
     </div>
 <?php endforeach;?>
-<script>
-    var <?=$obName?> = new JSAjaxComponent(<?=CUtil::PhpToJSObject($jsParams, false, true)?>)
-</script>
 </div>
